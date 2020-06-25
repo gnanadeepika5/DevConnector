@@ -6,11 +6,23 @@ const passport = require('passport');
 const router = express.Router();
 const User = require('../../models/User');
 const keys = require('../../config/keys');
+const validateRegisterInput = require('../../validations/register');
+const validateLoginInput = require('../../validations/login');
 
 // @route   POST api/users/register
 // @desc    Register user
 // @access  Public
 router.post('/register', (req, res) => {
+  //validation
+  // const result = validateRegisterInput(req.body);
+  // if(!result.isValid){
+  //   return res.status(400).json(result.errors);
+  // }
+  const {errors, isValid} = validateRegisterInput(req.body);
+  
+  if(!isValid){
+    return res.status(400).json(errors);
+  }
   User.findOne({email: req.body.email})
     .then(user => {
       if (user){
@@ -51,6 +63,12 @@ router.post('/register', (req, res) => {
 // @desc    Login user/returning a token
 // @access  Public
 router.post('/login', (req, res) => {
+  //validation
+  const {errors, isValid} = validateLoginInput(req.body);
+  
+  if(!isValid){
+    return res.status(400).json(errors);
+  }
   const email = req.body.email;
   const password = req.body.password;
 
@@ -93,7 +111,7 @@ router.post('/login', (req, res) => {
 router.get('/current',
   passport.authenticate('jwt', {session:false}),
 (req,res) => {
-    return res.json({msg:'Success'});
+    return res.json(req.user);
 })
 
 module.exports = router;
