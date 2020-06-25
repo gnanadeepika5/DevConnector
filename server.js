@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyparser = require('body-parser');
+const passport = require('passport');
+
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts');
 const profile = require('./routes/api/profile');
@@ -9,6 +11,10 @@ const app = express();
 //Body parser configuration
 app.use(bodyparser.urlencoded({extended: false}));
 app.use(bodyparser.json());
+
+//passport configuration
+app.use(passport.initialize());
+require('./config/passportfile')(passport);//execute passport within passportfile(calling "passportfile" and executing passport with in that)
 
 //Db config
 const db = require('./config/keys').mongoURI;
