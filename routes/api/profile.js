@@ -8,9 +8,9 @@ const Profile = require("../../models/Profile");
 // Load User Model
 const User = require("../../models/User");
 // Load Validation
-const validateProfileInput = require("../../validation/profile");
-const validateExperienceInput = require("../../validation/experience");
-const validateEducationInput = require("../../validation/education");
+const validateProfileInput = require("../../validations/profile");
+const validateExperienceInput = require("../../validations/experience");
+const validateEducationInput = require("../../validations/education");
 
 // @route   GET api/profile
 // @desc    Get current users profile

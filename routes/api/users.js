@@ -6,8 +6,8 @@ const passport = require('passport');
 const router = express.Router();
 const User = require('../../models/User');
 const keys = require('../../config/keys');
-const validateRegisterInput = require('../../validation/register');
-const validateLoginInput = require("../../validation/login");
+const validateRegisterInput = require('../../validations/register');
+const validateLoginInput = require("../../validations/login");
 // @route   POST api/users/register
 // @desc    Register user
 // @access  Public
